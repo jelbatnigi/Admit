@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,51 +27,76 @@ public class PurchaseService {
     @Autowired
     ShowService showService;
 
-    public void addNewPurchase(Purchase purchase)
-    {
-        purchaseDAO.purchaseAshow(purchase);
+    public void addNewPurchase(Purchase purchase) throws Exception {
+        try {
+            purchaseDAO.purchaseAshow(purchase);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
 
     }
 
-    public List<Purchase> getPurchasesByEventId(long showId)
-    {
-        return purchaseDAO.getPurchasesByShowId(showId);
+    public List<Purchase> getPurchasesByEventId(long showId) throws Exception {
+
+        try {
+            return purchaseDAO.getPurchasesByShowId(showId);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
-    public Purchase getPurchaseByShowAndUser(long userId, long showId)
-    {
-        return purchaseDAO.getPurchaseByShowIdAndUserId(userId, showId);
+    public Purchase getPurchaseByShowAndUser(long userId, long showId) throws Exception {
+        try {
+            return purchaseDAO.getPurchaseByShowIdAndUserId(userId, showId);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
-    public void updatePurchase(Purchase purchase)
-    {
-        purchaseDAO.updatePurchase(purchase);
+    public void updatePurchase(Purchase purchase) throws Exception {
+        try {
+            purchaseDAO.updatePurchase(purchase);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
-    public void updatePurchaseAfterCancellation(Purchase purchase)
-    {
+    public void updatePurchaseAfterCancellation(Purchase purchase) throws Exception {
 
-        updatePurchase(purchase);
+        try {
+            updatePurchase(purchase);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
 
     }
 
     @Transactional
-    public void addPurchaseAfterExchange(Exchange exchange)
-    {
+    public void addPurchaseAfterExchange(Exchange exchange) throws Exception {
         Purchase purchase = new Purchase();
         purchase.setUserId(exchange.getUserId());
         purchase.setShowId(exchange.getToShowId());
         purchase.setNumberOfTickets(exchange.getNumberOfTickets());
-        addNewPurchase(purchase);
+        try {
+            addNewPurchase(purchase);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
 
     }
 
     @Transactional
-    public List<Purchase> getPurchasesByEventsRange(long fromEventId, long toEventId)
-    {
-        List<Long> showIds = showService.getEventsByIdRange(fromEventId, toEventId);
+    public List<Purchase> getPurchasesByEventsRange(long fromEventId, long toEventId) throws Exception {
+        List<Purchase> purchases = new ArrayList<Purchase>();
+        try {
+            List<Long> showIds = showService.getEventsByIdRange(fromEventId, toEventId);
 
-        return purchaseDAO.getPurchasesByEventIds(showIds);
+            purchases = purchaseDAO.getPurchasesByEventIds(showIds);
+            } catch (Exception e) {
+                throw new Exception(e);
+            }
+
+        return purchases;
 
     }
 

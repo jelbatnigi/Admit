@@ -26,25 +26,27 @@ public class ExchangeService {
     ExchangeDAO exchangeDAO;
 
     @Transactional
-    public boolean exchageTicket(Exchange exchange)
-    {
+    public void exchageTicket(Exchange exchange) throws Exception {
         long userId = exchange.getUserId();
         long showId = exchange.getfromShowId();
-        Purchase purchase = purchaseService.getPurchaseByShowAndUser(userId,showId);
-        if (purchase.getNumberOfTickets() < exchange.getNumberOfTickets())
-        {
-            System.out.println("you don't have enough ticket to exchange");
-            return false;
+        Purchase purchase = null;
+        try {
+            purchaseService.getPurchaseByShowAndUser(userId, showId);
+            if (purchase.getNumberOfTickets() < exchange.getNumberOfTickets()) {
+                throw new Exception("You Don't Have Enough Tickets to Exchange!");
+            }
+
+            long exchangeId = exchangeDAO.exchangeTickets(exchange);
+            exchange.setExchangeId(exchangeId);
+
+            cancellationService.updateCancellationAfterExchange(exchange);
+
+            purchaseService.addPurchaseAfterExchange(exchange);
         }
-
-        long exchangeId = exchangeDAO.exchangeTickets(exchange);
-        exchange.setExchangeId(exchangeId);
-
-        cancellationService.updateCancellationAfterExchange(exchange);
-
-        purchaseService.addPurchaseAfterExchange(exchange);
-
-        return true;
+        catch (Exception e)
+        {
+            throw new Exception(e);
+        }
 
     }
 }

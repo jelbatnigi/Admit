@@ -25,7 +25,11 @@ public class CancellationController {
     @RequestMapping(value = "/cancelTickets", method = RequestMethod.POST)
     public String cancel(@RequestBody Cancellation cancellation)
     {
-         cancellationService.CancellTickets(cancellation);
+        try {
+            cancellationService.CancellTickets(cancellation);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 
         return "Cancellation is Successful";
     }

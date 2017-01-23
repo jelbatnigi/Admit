@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
     @RequestMapping("/")
-    public String starAppr()
+    public String startApp()
     {
         return "login";
     }

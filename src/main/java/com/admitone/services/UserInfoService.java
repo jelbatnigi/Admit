@@ -20,7 +20,12 @@ public class UserInfoService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserInfo userInfo = userInfoDAO.finsUserByEmail(userName);
+        UserInfo userInfo = null;
+        try {
+            userInfo = userInfoDAO.finsUserByEmail(userName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if(userInfo == null)
         {

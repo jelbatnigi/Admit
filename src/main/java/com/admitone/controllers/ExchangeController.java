@@ -25,7 +25,11 @@ public class ExchangeController {
     @RequestMapping(value = "/exchangeTickets", method = RequestMethod.POST)
     public String exchange(@RequestBody Exchange exchange)
     {
-        exchangeService.exchageTicket(exchange);
+        try {
+            exchangeService.exchageTicket(exchange);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
 
         return "Exchange is Successful";
     }

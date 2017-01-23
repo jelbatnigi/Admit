@@ -5,6 +5,7 @@ import com.admitone.model.Shows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,9 +19,14 @@ public class ShowService {
     @Autowired
     ShowDAO showDAO;
 
-    public List<Long> getEventsByIdRange(long fromShowId, long toShowId)
-    {
-        List<Shows> shows = showDAO.getShowsByIdRange(fromShowId, toShowId);
+    public List<Long> getEventsByIdRange(long fromShowId, long toShowId) throws Exception {
+        List<Shows> shows = new ArrayList<Shows>();
+
+        try {
+            shows = showDAO.getShowsByIdRange(fromShowId, toShowId);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
 
         return shows.stream().map(Shows::getShowId).collect(Collectors.toList());
 
