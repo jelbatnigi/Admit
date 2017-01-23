@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/login").permitAll()
+                .antMatchers("/","/login", "/rest/**").permitAll()
                 .anyRequest().authenticated();
                 http.csrf().disable();
                 http.formLogin()
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     //    auth.userDetailsService(userDetailsService);
         auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+                .withUser("user").password("password").roles("ADMIN");
     }
 
 

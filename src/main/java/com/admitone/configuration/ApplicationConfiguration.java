@@ -21,7 +21,7 @@ import java.beans.PropertyVetoException;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Bean(name="purchaseDAO")
+    /*@Bean(name="purchaseDAO")
     public PurchaseDAO purchaseDAO()
     {
         return new PurchaseDAO();
@@ -35,7 +35,7 @@ public class ApplicationConfiguration {
     @Bean(name="ExchageDAO")
     public ExchangeDAO exchangeDAO(){
         return new ExchangeDAO();
-    }
+    }*/
 
 
 }
