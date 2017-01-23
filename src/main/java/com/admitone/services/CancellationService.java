@@ -1,0 +1,70 @@
+package com.admitone.services;
+
+import com.admitone.dao.CancellationDAO;
+import com.admitone.dao.PurchaseDAO;
+import com.admitone.model.Cancellation;
+import com.admitone.model.Exchange;
+import com.admitone.model.Purchase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Created by j_elbatn on 1/21/17.
+ */
+
+@Service
+public class CancellationService {
+
+    @Autowired
+    PurchaseService purchaseService;
+
+    @Autowired
+    CancellationDAO cancellationDAO;
+
+    public void CancellTickets(Cancellation cancellation)
+    {
+        long userId = cancellation.getUserId();
+        long showId = cancellation.getShowId();
+        Purchase purchase = getPurchaseInformationBeforeCancellation(cancellation);
+        if (purchase.getNumberOfTickets() < cancellation.getNumberOfTickets())
+        {
+            System.out.println("Error cannot cancell");
+            //return false;
+        }
+
+        long cancellationId = cancellationDAO.CancellTicket(cancellation);
+        cancellation.setCancelationId(cancellationId);
+        purchase.setCancellationId(cancellationId);
+        purchase.setNumberOfTickets(cancellation.getNumberOfTickets());
+        purchaseService.updatePurchaseAfterCancellation(purchase);
+        //return true;
+
+    }
+
+    @Transactional
+    public long updateCancellationAfterExchange(Exchange exchange)
+    {
+        Cancellation cancellation = new Cancellation();
+        cancellation.setUserId(exchange.getUserId());
+        cancellation.setShowId(exchange.getfromShowId());
+        cancellation.setNumberOfTickets(exchange.getNumberOfTickets());
+        cancellation.setExchangeId(exchange.getExchangeId());
+
+        long cancellationId = cancellationDAO.CancellTicket(cancellation);
+
+        Purchase purchase = getPurchaseInformationBeforeCancellation(cancellation);
+        purchase.setCancellationId(cancellationId);
+        purchase.setNumberOfTickets(cancellation.getNumberOfTickets());
+
+        purchaseService.updatePurchaseAfterCancellation(purchase);
+
+        return cancellationId;
+    }
+
+    public Purchase getPurchaseInformationBeforeCancellation(Cancellation cancellation)
+    {
+        return purchaseService.getPurchaseByShowAndUser(cancellation.getUserId(),cancellation.getShowId());
+
+    }
+}
