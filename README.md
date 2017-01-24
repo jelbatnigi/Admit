@@ -21,7 +21,7 @@ run command : java -jar -Duser={user} -Dpass={password} admitone-1.0-SNAPSHOT.ja
 
 The application Exposes 3 main restful services and can be invoked using postman:
 
-1. Purchase service 
+1. Purchase service :
 This service takes a userId, showId and numberOfTickets and adds a purchase order to the database.
 URL:  http://localhost:8080/rest/purchase
 It takes application/json as content-type header
@@ -32,7 +32,7 @@ It takes a JSON object for example:
    "numberOfTickets":20
 }
 
-2. Cancellation Service
+2. Cancellation Service :
 This service takes a userId, showId and numberOfTickets to be cancelled and exchangeId if the cancellation happens as a result of an exchange. It persists to the cancellation table
 URL:  http://localhost:8080/rest/cancelTickets
 It takes application/json as content-type header
@@ -44,7 +44,7 @@ It takes a JSON object for example:
    "ExchangeId":null
 }
 
-3. Excahange Service
+3. Excahange Service :
 This service takes a userId, fromShowId, toShowId and numberOfTickets to be exchanged. It persists to the exchange table
 URL:  http://localhost:8080/rest/exchangeTickets
 It takes application/json as content-type header
@@ -56,12 +56,12 @@ It takes a JSON object for example:
    "numberOfTickets":5
 }
 
-4. login services
+4. login services :
 by typing in the url http://localhost:8080 The user will be directed to a login page. The authentication uses Spring securtity. I have procided hardcoded passwords
 username : user
 password: password
 Once the user logs in, he/she will be directed to the search page.
 
-5. Search Service
+5. Search Service :
 This service is accessed by the UI http://localhost:8080/search users must login to access this page.
 This service invokes a restful service to search by event ids. The result will display a table the order information for each curtomer.
