@@ -15,7 +15,7 @@ public class UserInfoDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public UserInfo finsUserByEmail(String userName) throws Exception {
+    public UserInfo findUserByEmail(String userName) throws Exception {
         UserInfo userInfo = null;
 
         try{

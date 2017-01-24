@@ -31,7 +31,7 @@ public class ExchangeService {
         long showId = exchange.getfromShowId();
         Purchase purchase = null;
         try {
-            purchaseService.getPurchaseByShowAndUser(userId, showId);
+            purchase = purchaseService.getPurchaseByShowAndUser(userId, showId);
             if (purchase.getNumberOfTickets() < exchange.getNumberOfTickets()) {
                 throw new Exception("You Don't Have Enough Tickets to Exchange!");
             }
