@@ -84,7 +84,7 @@ It takes a JSON object for example:
 
 4. login services :
 
-by typing in the url http://localhost:8080 The user will be directed to a login page. The authentication uses Spring securtity. I have provided hardcoded user and passwords
+By typing in the url http://localhost:8080 The user will be directed to a login page. The authentication uses Spring securtity. I have provided hardcoded user and passwords
 
 username : user
 
@@ -99,6 +99,6 @@ This service is accessed by the UI
 
 http://localhost:8080/search 
 
-users must login first to access this page.
+Users must login first to access this page.
 
-This service invokes a restful service to search by event ids. The result will display a table the order information for each curtomer.
+This service invokes a restful service to search by event ids. The results will display a table with the order information for each curtomer.
