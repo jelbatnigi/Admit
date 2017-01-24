@@ -28,6 +28,7 @@ run command : java -jar -Duser={user} -Dpass={password} admitone-1.0-SNAPSHOT.ja
 
 The application Exposes 3 main restful services and can be invoked using postman:
 
+
 1. Purchase service :
 
 This service takes a userId, showId and numberOfTickets and adds a purchase order to the database.
@@ -43,6 +44,7 @@ It takes a JSON object for example:
    "showId":4,
    "numberOfTickets":20
 }
+
 
 2. Cancellation Service :
 
@@ -61,6 +63,7 @@ It takes a JSON object for example:
    "ExchangeId":null
 }
 
+
 3. Excahange Service :
 
 This service takes a userId, fromShowId, toShowId and numberOfTickets to be exchanged. It persists to the exchange table
@@ -77,6 +80,7 @@ It takes a JSON object for example:
    "toShowId":8,
    "numberOfTickets":5
 }
+
 
 4. login services :
 
