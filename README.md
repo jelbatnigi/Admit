@@ -12,12 +12,16 @@ scripts.sql -- this script contains all the schema and table create and insert s
 create_db.sh -- will load the sql script to the database
 
 run the following script from the command line. You need to provide username and password for your mysql local instance
+
 ./create_db.sh {username} {password}
 
 #Application
 The application is a using Springboot
+
 Get the jar file from /target/admitone-1.0-SNAPSHOT.jar
+
 You can run the jar in the command line. You need to pass as System variables the user and password credentials for your mysql local database
+
 run command : java -jar -Duser={user} -Dpass={password} admitone-1.0-SNAPSHOT.jar
 
 #Application Functionality
@@ -25,10 +29,15 @@ run command : java -jar -Duser={user} -Dpass={password} admitone-1.0-SNAPSHOT.ja
 The application Exposes 3 main restful services and can be invoked using postman:
 
 1. Purchase service :
+
 This service takes a userId, showId and numberOfTickets and adds a purchase order to the database.
+
 URL:  http://localhost:8080/rest/purchase
+
 It takes application/json as content-type header
+
 It takes a JSON object for example:
+
 {
    "userId":4,
    "showId":4,
