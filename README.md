@@ -5,9 +5,12 @@
 
 #Database
 to start you need to load the data into the database.
-Obtain the following 2 scripts 
+Obtain the following 2 scripts
+
 scripts.sql -- this script contains all the schema and table create and insert statements
+
 create_db.sh -- will load the sql script to the database
+
 run the following script from the command line. You need to provide username and password for your mysql local instance
 ./create_db.sh {username} {password}
 
